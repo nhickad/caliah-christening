@@ -106,9 +106,10 @@ h1{font:400 clamp(48px,7vw,76px)/1.05 "Pinyon Script",cursive;margin:6px 0 0;col
 .e-front::after{content:"";position:absolute;inset:0;background:#efb6c3;clip-path:polygon(0 100%,50% 48%,100% 100%)}
 .flap{position:absolute;left:0;right:0;top:0;height:58%;z-index:3;transform-origin:top;transition:transform .6s ease-in,z-index 0s .3s;transform-style:preserve-3d}
 .flap::before{content:"";position:absolute;inset:0;background:#e59bad;clip-path:polygon(0 0,100% 0,50% 100%);border-radius:8px 8px 0 0;filter:drop-shadow(0 4px 4px rgba(92,18,41,.2))}
-.seal{position:absolute;left:50%;top:100%;width:58px;height:58px;margin:-34px 0 0 -29px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#8c2445,#5c1229 70%);color:#f6d6de;display:grid;place-items:center;font:400 30px/1 "Pinyon Script",cursive;box-shadow:0 4px 10px rgba(92,18,41,.45),inset 0 0 0 3px rgba(255,255,255,.12);transition:opacity .25s}
+.seal{position:absolute;left:50%;top:100%;width:64px;height:64px;margin:-37px 0 0 -32px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#8c2445,#5c1229 70%);color:#f6d6de;display:grid;place-items:center;box-shadow:0 4px 10px rgba(92,18,41,.45),inset 0 0 0 3px rgba(255,255,255,.12);transition:opacity .25s}
 .env-cta{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 24px;border-radius:999px;background:var(--ink);color:#fff;font:500 13px "Jost",sans-serif;letter-spacing:.1em;border:0;cursor:pointer;animation:pulse 2s ease-in-out infinite}
 .env.open .envelope{animation:none}
+.seal img{width:78%;height:78%;display:block}
 .env.open .seal{opacity:0}
 .env.open .flap{transform:rotateX(180deg);z-index:0}
 .env.open .letter{transform:translateY(-62%)}
@@ -131,7 +132,7 @@ body.wait .card,body.wait .text>*{animation-play-state:paused}
       <div class="e-back"></div>
       <div class="letter"><div><b>Caliah Athena</b><span>DECEMBER 8, 2026</span></div></div>
       <div class="e-front"></div>
-      <div class="flap"><div class="seal">C</div></div>
+      <div class="flap"><div class="seal"><img src="seal-ca.png" alt=""></div></div>
     </button>
     <button class="env-cta" id="envCta">TAP THE ENVELOPE TO OPEN</button>
   </div>
