@@ -148,6 +148,45 @@ body.wait .card,body.wait .text>*{animation-play-state:paused}
 @keyframes spinpulse{0%,100%{box-shadow:0 8px 20px -8px rgba(92,18,41,.45),0 0 0 0 rgba(233,183,194,.7)}50%{box-shadow:0 8px 20px -8px rgba(92,18,41,.45),0 0 0 8px rgba(233,183,194,0)}}
 body.wait .more{animation-play-state:paused}
 @media(max-width:560px){.pair{grid-template-columns:minmax(0,1fr);gap:28px}.count span{font-size:11px}}
+
+/* letter page */
+[hidden]{display:none!important}
+.letter-page{position:fixed;inset:0;z-index:4;overflow-y:auto;display:flex;align-items:center;justify-content:center;padding:clamp(18px,4vw,48px) 16px;background:var(--bg);background-image:radial-gradient(circle at 15% 10%,#fbeef1 0,transparent 45%),radial-gradient(circle at 85% 95%,#f1cfd7 0,transparent 50%);transition:opacity .9s ease,visibility .9s}
+.letter-page[hidden]{display:none}
+.letter-page.gone{opacity:0;visibility:hidden}
+.note-card{position:relative;width:min(560px,100%);margin:auto;background:var(--card);border-radius:6px;padding:clamp(28px,5vw,48px) clamp(22px,5vw,46px) clamp(26px,4vw,38px);box-shadow:0 30px 60px -30px rgba(92,18,41,.4);text-align:left;animation:unfold 1s cubic-bezier(.2,.8,.2,1) both;transform-origin:top center}
+.note-card::before{content:"";position:absolute;inset:10px;border:1px solid var(--line);border-radius:3px;pointer-events:none}
+.letter-page.closing .note-card{animation:foldaway .8s ease-in forwards}
+@keyframes unfold{from{opacity:0;transform:perspective(900px) rotateX(-28deg) translateY(30px)}to{opacity:1;transform:none}}
+@keyframes foldaway{to{opacity:0;transform:translateY(-40px) scale(.96)}}
+.reader{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.ava{width:40px;height:40px;border-radius:50%;overflow:hidden;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);flex:none}
+.ava img{width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+.speaking .ava{animation:talk 1.4s ease-in-out infinite}
+@keyframes talk{0%,100%{box-shadow:0 0 0 1px var(--line),0 0 0 0 rgba(233,183,194,.8)}50%{box-shadow:0 0 0 1px var(--line),0 0 0 8px rgba(233,183,194,0)}}
+.wave{display:flex;align-items:center;gap:3px;height:18px}
+.wave i{width:3px;height:6px;border-radius:2px;background:var(--rose);transition:height .2s}
+.speaking .wave i{animation:wv .9s ease-in-out infinite}
+.wave i:nth-child(2){animation-delay:.15s}.wave i:nth-child(3){animation-delay:.3s}.wave i:nth-child(4){animation-delay:.45s}.wave i:nth-child(5){animation-delay:.6s}
+@keyframes wv{0%,100%{height:5px}50%{height:18px}}
+.who{font:italic 400 16px "Cormorant Garamond",serif;color:var(--soft)}
+.dear{font:400 clamp(38px,8vw,52px)/1.15 "Pinyon Script",cursive;color:var(--ink);margin:0 0 14px}
+.note-card p{font:400 clamp(19px,2.4vw,22px)/1.6 "Cormorant Garamond",serif;color:var(--ink);margin:0 0 14px}
+.note-card .love{font:400 clamp(30px,6vw,40px)/1.2 "Pinyon Script",cursive;text-align:right;margin:8px 0 0}
+.w{display:inline-block;opacity:0;filter:blur(6px);transform:translateY(8px);transition:opacity .45s ease,filter .45s ease,transform .45s ease,color 1.2s ease;white-space:pre}
+.w.on{opacity:1;filter:none;transform:none}
+.w.now{color:#a3365a}
+.note-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;min-height:44px}
+.again{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 4px;border:0;background:none;color:var(--soft);font:500 14px "Jost",sans-serif;cursor:pointer}
+.again svg{width:16px;height:16px;fill:currentColor}
+.go-cta{margin-left:auto;animation:pulse 2s ease-in-out infinite,fadeUp .6s ease-out both}
+.skip{position:fixed;top:14px;right:14px;z-index:2;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,250,251,.85);color:var(--soft);font:500 13px "Jost",sans-serif;cursor:pointer}
+.letter-page.done .note-card{cursor:pointer}
+.hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.hearts span{position:absolute;bottom:-30px;width:var(--s);height:var(--s);opacity:.0;animation:rise2 var(--d) ease-in var(--dl) infinite}
+.hearts svg{width:100%;height:100%;fill:var(--c)}
+@keyframes rise2{0%{transform:translate(0,0) rotate(-10deg);opacity:0}10%{opacity:.8}100%{transform:translate(var(--x),-110vh) rotate(15deg);opacity:0}}
+@media(prefers-reduced-motion:reduce){.note-card,.hearts span,.go-cta{animation:none}.w{transition:none}}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @media(max-width:760px){
   .card{grid-template-columns:minmax(0,1fr);gap:26px;padding:32px 22px 34px}
@@ -169,6 +208,25 @@ body.wait .more{animation-play-state:paused}
     <button class="env-cta" id="envCta">TAP THE ENVELOPE TO OPEN</button>
   </div>
 </div>
+<div class="letter-page" id="letterPage" aria-live="polite" hidden>
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+  <button class="skip" id="skipBtn" type="button">Skip &rsaquo;</button>
+  <article class="note-card" id="noteCard">
+    <div class="reader"><span class="ava"><img src="caliah.jpg" alt=""></span><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="who" id="who">Caliah is reading&hellip;</span></div>
+    <h2 class="dear"><span class="ln" data-i="0">Dear Ninong &amp; Ninang,</span></h2>
+    <p><span class="ln" data-i="1">Hi! It&rsquo;s me, Caliah.</span></p>
+    <p><span class="ln" data-i="2">Mommy and Daddy say you are some of their most favorite people,</span> <span class="ln" data-i="3">and your love has always been a blessing to our family.</span></p>
+    <p><span class="ln" data-i="4">On December 8, I will be baptized,</span> <span class="ln" data-i="5">and I would be so happy if you could be part of my special day.</span></p>
+    <p><span class="ln" data-i="6">Please guide me as I grow in faith, love, and kindness.</span></p>
+    <p><span class="ln" data-i="7">I can&rsquo;t wait to see you there!</span></p>
+    <p class="love"><span class="ln" data-i="8">Love, Caliah</span></p>
+    <div class="note-foot">
+      <button class="again" id="againBtn" type="button" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>Hear again</button>
+      <button class="env-cta go-cta" id="goBtn" type="button" hidden>OPEN MY INVITATION</button>
+    </div>
+  </article>
+</div>
+<audio id="voice" src="letter.mp3" preload="auto"></audio>
 <div class="sky back" id="back" aria-hidden="true"></div><div class="sky" id="sky" aria-hidden="true"></div>
 <main class="wrap">
   <article class="card">
@@ -193,7 +251,7 @@ body.wait .more{animation-play-state:paused}
         </section>
         <section class="venue">
           <h2>Reception</h2>
-          <p class="time">10:00 AM</p>
+          <p class="time">9:00 AM</p>
           <p>Behind Alfamart Pagaspas, Tanauan City, Batangas</p>
           <a class="btn solid" href="https://maps.app.goo.gl/XnT31Li4YUMG18Bk7" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Reception map</a>
         </section>
@@ -213,8 +271,8 @@ body.wait .more{animation-play-state:paused}
       <p class="cd-done" id="cdDone" hidden></p>
     </div>
     <blockquote class="verse">
-      <p>&ldquo;For this child I prayed; and the LORD hath given me my petition which I asked of him.&rdquo;</p>
-      <cite>1 Samuel 1:27 &middot; KJV</cite>
+      <p>&ldquo;I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well.&rdquo;</p>
+      <cite>Psalm 139:14 &middot; KJV</cite>
     </blockquote>
     <div class="pair">
       <div class="block">
@@ -225,14 +283,14 @@ body.wait .more{animation-play-state:paused}
       <div class="block">
         <h2 class="sec">Save the date</h2>
         <div class="cal">
-          <a class="btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Caliah%20Athena%27s%20Christening&amp;dates=20261208T000000Z/20261208T050000Z&amp;ctz=Asia/Manila&amp;details=8%3A00%20AM%20Holy%20Baptism%3A%20Immaculate%20Conception%20Chapel%2C%20Pagaspas%0A10%3A00%20AM%20Reception%3A%20Behind%20Alfamart%20Pagaspas%2C%20Tanauan%20City%2C%20Batangas%0AReception%20map%3A%20https%3A//maps.app.goo.gl/XnT31Li4YUMG18Bk7%0AInvitation%3A%20https%3A//caliahathena.vercel.app/&amp;location=Immaculate%20Conception%20Chapel%2C%20Pagaspas%2C%20Tanauan%20City%2C%20Batangas" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2zM5 9h14v11H5z"/></svg>Google Calendar</a>
-          <a class="btn" href="/caliah-christening.ics"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2zM5 9h14v11H5z"/></svg>iPhone / Outlook</a>
+          <button class="btn solid" id="addCal" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2zM5 9h14v11H5zm6 2v3H8v2h3v3h2v-3h3v-2h-3v-3z"/></svg>Add to my calendar</button>
         </div>
+        <p class="small" id="calHint" hidden>To add it, tap <b>&middot;&middot;&middot;</b> at the top and choose <b>Open in browser</b>, then tap the button again.</p>
       </div>
     </div>
     <div class="kind">
       <h2 class="sec">A gentle note</h2>
-      <p>Dear Ninongs, Ninangs, family and friends, our little chapel is quite small and may get crowded during the 8:00&nbsp;AM baptism. If you can&rsquo;t fit in or can&rsquo;t make it to the church, we completely understand. Please join us at the reception from 10:00&nbsp;AM instead. Come whenever you can; we would simply love to celebrate Caliah with you.</p>
+      <p>Dear Ninongs, Ninangs, family and friends, our little chapel is quite small and may get crowded during the 8:00&nbsp;AM baptism. If you can&rsquo;t fit in or can&rsquo;t make it to the church, we completely understand. Please join us at the reception from 9:00&nbsp;AM instead. Come whenever you can; we would simply love to celebrate Caliah with you.</p>
       <p class="sig">With love, Nhick, Camille &amp; Caliah</p>
     </div>
   </section>
@@ -248,13 +306,45 @@ sky.innerHTML=birds.map(([s,y,d,dl,c,o])=>`<div class="bird" style="--s:${small?
 document.getElementById('back').innerHTML=Array.from({length:small?8:14},(_,i)=>`<span class="petal" style="left:${(i*73)%100}vw;--w:${8+(i*5)%9}px;--d:${12+(i*7)%10}s;--dl:${-(i*3.1)%20}s;--c:${i%3?'#e9b7c2':'#b04a66'}"></span>`).join('');
 }</script>
 <script>{
-const env=document.getElementById('env');
-let opened=false;
+const $=id=>document.getElementById(id);
+const env=$('env'),lp=$('letterPage'),voice=$('voice'),bgm=$('bgm');
+const TIMING=[[1.4, 1.14], [3.24, 1.26], [5.1, 2.92], [8.27, 2.58], [11.44, 2.09], [13.78, 3.01], [17.4, 3.27], [21.27, 1.36], [23.23, 0.9]];
+// split each line into words
+const lines=[...lp.querySelectorAll('.ln')].map(ln=>{const words=ln.textContent.split(/(\s+)/).filter(s=>s.length);ln.textContent='';
+  let pos=0;const total=ln.textContent.length||words.join('').length;const out=[];
+  words.forEach(w=>{if(/^\s+$/.test(w)){ln.append(w);pos+=w.length;return}const s=document.createElement('span');s.className='w';s.textContent=w;ln.append(s);out.push({el:s,at:pos/total});pos+=w.length});
+  return out});
+let raf,clock0=0,useClock=false,finished=false,opened=false;
+const now=()=>useClock?(performance.now()-clock0)/1000:voice.currentTime;
+const end=TIMING[TIMING.length-1][0]+TIMING[TIMING.length-1][1];
+const step=()=>{const tm=now();let last=null;
+  TIMING.forEach(([st,du],i)=>lines[i].forEach(w=>{const show=tm>=st+w.at*du-.05;w.el.classList.toggle('on',show);if(show)last=w.el}));
+  lp.querySelectorAll('.w.now').forEach(e=>e!==last&&e.classList.remove('now'));if(last&&tm<end)last.classList.add('now');
+  if(tm>=end+.3||(!useClock&&voice.ended)){finish();return}
+  raf=requestAnimationFrame(step)};
+const startReading=()=>{finished=false;lp.classList.remove('done');$('goBtn').hidden=true;$('againBtn').hidden=true;$('who').textContent='Caliah is reading\u2026';
+  lp.querySelectorAll('.w').forEach(e=>e.classList.remove('on','now'));lp.classList.add('speaking');
+  voice.currentTime=0;useClock=false;
+  const pr=voice.play();if(pr)pr.catch(()=>{useClock=true;clock0=performance.now()});
+  cancelAnimationFrame(raf);raf=requestAnimationFrame(step)};
+const finish=()=>{if(finished)return;finished=true;cancelAnimationFrame(raf);lp.classList.remove('speaking');lp.classList.add('done');
+  lp.querySelectorAll('.w').forEach(e=>{e.classList.add('on');e.classList.remove('now')});
+  $('who').textContent='A little note from Caliah';$('againBtn').hidden=false;$('goBtn').hidden=false};
+const toMain=()=>{voice.pause();finish();lp.classList.add('closing');setTimeout(()=>lp.classList.add('gone'),350);
+  setTimeout(()=>{document.body.classList.remove('wait');try{bgm.volume=.4}catch(e){}},500);setTimeout(()=>lp.remove(),1300)};
 const open=()=>{if(opened)return;opened=true;env.classList.add('open');
-  setTimeout(()=>{env.classList.add('gone');document.body.classList.remove('wait')},1500);
-  setTimeout(()=>env.remove(),2400)};
-document.getElementById('envBtn').addEventListener('click',open);
-document.getElementById('envCta').addEventListener('click',open);
+  try{bgm.volume=.08;bgm.play().catch(()=>{})}catch(e){}
+  voice.currentTime=0;const pr=voice.play();if(pr)pr.catch(()=>{useClock=true;clock0=performance.now()});
+  lp.hidden=false;lp.classList.add('speaking');
+  setTimeout(()=>env.classList.add('gone'),1300);setTimeout(()=>env.remove(),2200);
+  raf=requestAnimationFrame(step)};
+$('envBtn').addEventListener('click',open);$('envCta').addEventListener('click',open);
+$('againBtn').addEventListener('click',e=>{e.stopPropagation();startReading()});
+$('goBtn').addEventListener('click',e=>{e.stopPropagation();toMain()});
+$('skipBtn').addEventListener('click',toMain);
+$('noteCard').addEventListener('click',()=>{if(finished)toMain()});
+const heart='<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.8 8.3 3 4.5 6.6 4.5c2.2 0 3.9 1.3 5.4 3.1 1.5-1.8 3.2-3.1 5.4-3.1 3.6 0 5.8 3.8 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg>';
+$('hearts').innerHTML=Array.from({length:12},(_,i)=>`<span style="left:${(i*37+7)%96}vw;--s:${10+(i*7)%14}px;--d:${9+(i*5)%8}s;--dl:${-(i*1.7)}s;--x:${(i%2?1:-1)*(10+i*3)}px;--c:${i%3?'#e9b7c2':'#c97b91'}">${heart}</span>`).join('');
 }</script>
 <script>{
 const T=Date.UTC(2026,11,8,0,0,0),el=k=>document.getElementById(k),p=n=>String(n).padStart(2,'0');
@@ -265,13 +355,28 @@ const tick=()=>{const ms=T-Date.now();
   const s=Math.floor(ms/1000);el('cd-d').textContent=Math.floor(s/86400);el('cd-h').textContent=p(Math.floor(s%86400/3600));
   el('cd-m').textContent=p(Math.floor(s%3600/60));el('cd-s').textContent=p(s%60)};
 tick();timer=setInterval(tick,1000);
-const a=el('bgm'),b=el('music');a.volume=.4;
+const a=el('bgm'),b=el('music');
 const play=()=>{a.play().then(()=>{b.setAttribute('aria-pressed','true');b.setAttribute('aria-label','Pause music')}).catch(()=>{b.setAttribute('aria-pressed','false');b.setAttribute('aria-label','Play music')})};
-const startMusic=()=>{b.hidden=false;play()};
+const startMusic=()=>{b.hidden=false};
 el('envBtn').addEventListener('click',startMusic);el('envCta').addEventListener('click',startMusic);
 if(!el('env'))b.hidden=false;
 b.addEventListener('click',()=>{if(a.paused)play();else{a.pause();b.setAttribute('aria-pressed','false');b.setAttribute('aria-label','Play music')}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&!a.paused){a.pause();a.dataset.auto='1'}else if(!document.hidden&&a.dataset.auto){delete a.dataset.auto;play()}});
+}</script>
+<script>{
+const ua=navigator.userAgent,$=id=>document.getElementById(id);
+const iOS=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1),android=/Android/i.test(ua);
+const inApp=/FBAN|FBAV|FB_IAB|Messenger|Instagram|Line\/|MicroMessenger/i.test(ua);
+const title="Caliah Athena's Christening",loc="Immaculate Conception Chapel, Pagaspas, Tanauan City, Batangas";
+const desc="8:00 AM Holy Baptism - Immaculate Conception Chapel, Pagaspas\n9:00 AM Reception - Behind Alfamart Pagaspas, Tanauan City, Batangas\nReception map: https://maps.app.goo.gl/XnT31Li4YUMG18Bk7\nInvitation: https://caliahathena.vercel.app/";
+const B=Date.UTC(2026,11,8,0,0),E=Date.UTC(2026,11,8,5,0);
+const gcal='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(title)+'&dates=20261208T000000Z/20261208T050000Z&ctz=Asia/Manila&details='+encodeURIComponent(desc)+'&location='+encodeURIComponent(loc);
+$('addCal').addEventListener('click',()=>{
+  if(android){const e=s=>encodeURIComponent(s);
+    location.href='intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.item/event;S.title='+e(title)+';S.eventLocation='+e(loc)+';S.description='+e(desc)+';l.beginTime='+B+';l.endTime='+E+';S.browser_fallback_url='+e(gcal)+';end';
+    if(inApp)setTimeout(()=>{$('calHint').hidden=false},1500);return}
+  if(iOS&&inApp){$('calHint').hidden=false;return}
+  location.href='/caliah-christening.ics'});
 }</script>
 </body>
 </html>
