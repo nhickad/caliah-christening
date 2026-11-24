@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Fabian Family//Caliah Christening//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:caliah-christening-20261208@caliahathena.vercel.app
+DTSTAMP:20261124T000000Z
+DTSTART:20261208T000000Z
+DTEND:20261208T050000Z
+SUMMARY:Caliah Athena's Christening
+LOCATION:Immaculate Conception Chapel\, Pagaspas\, Tanauan City\, Batangas
+DESCRIPTION:8:00 AM Holy Baptism: Immaculate Conception Chapel\, Pagaspas\n10:00 AM Reception: Behind Alfamart Pagaspas\, Tanauan City\, Batangas\nReception map: https://maps.app.goo.gl/XnT31Li4YUMG18Bk7\nInvitation: https://caliahathena.vercel.app/
+URL:https://caliahathena.vercel.app/
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Caliah's Christening is tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR
